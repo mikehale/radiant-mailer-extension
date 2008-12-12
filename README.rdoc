@@ -19,7 +19,7 @@ The following tags are available to help you build the form:
 
   <r:mailer:form name=""> ... </r:mailer:form> 
   <r:mailer:text name="" /> 
-  <r:mailer:checkbox name="" />
+  <r:mailer:checkbox name="" checked="checked"/>
   <r:mailer:radio name="" />
   <r:mailer:radiogroup name=""> ... </r:mailer:radiogroup>
   <r:mailer:select name=""> ... </r:mailer:select>

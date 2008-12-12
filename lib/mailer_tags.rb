@@ -68,7 +68,7 @@ module MailerTags
     results
   end
 
-  %w(text checkbox radio hidden).each do |type|
+  %w(text radio hidden).each do |type|
     desc %{
       Renders a #{type} input tag for a mailer form. The 'name' attribute is required.}
     tag "mailer:#{type}" do |tag|
@@ -77,6 +77,20 @@ module MailerTags
       result = [%(<input type="#{type}" value="#{value}" #{mailer_attrs(tag)} />)]
       add_required(result, tag)
     end
+  end
+  
+  desc %{
+    Renders a checkbox input tag for a mailer form. The 'name' attribute is required.}
+  tag "mailer:checkbox" do |tag|
+    raise_error_if_name_missing "mailer:checkbox", tag.attr
+    prior_value = if mail = tag.locals.page.last_mail
+      mail.data[tag.attr['name']] == 'true'
+    end
+    value = prior_value || tag.attr['checked'] == 'checked'
+    
+    result = [%(<input type="checkbox" value="true" #{%(checked="checked") if value} #{mailer_attrs(tag)} />)]
+    result << %(<input type="hidden" value="false" #{mailer_attrs(tag)} />)
+    add_required(result, tag)
   end
 
   desc %{
