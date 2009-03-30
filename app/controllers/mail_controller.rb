@@ -14,7 +14,7 @@ class MailController < ApplicationController
     process_mail(mail, config)
 
     if mail.send
-      redirect_to (config[:redirect_to] || "#{page.url}#mail_sent")
+      redirect_to (config[:redirect_to] || "#{page.url.chomp('/')}#mail_sent")
     else
       render :text => page.render
     end
